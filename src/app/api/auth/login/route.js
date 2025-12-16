@@ -46,17 +46,18 @@ export async function POST(request) {
         }
 
         const token = signToken({ username: foundUser.username, role: foundUser.role });
-        const cookieStore = await cookies();
 
-        cookieStore.set("admin_token", token, {
+        const response = NextResponse.json({ success: true });
+
+        response.cookies.set("admin_token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
+            secure: false, // Ensure compatible with HTTP production setups
             sameSite: "lax",
             maxAge: 60 * 60 * 24, // 1 day
             path: "/",
         });
 
-        return NextResponse.json({ success: true });
+        return response;
 
     } catch (error) {
         console.error("Login Error:", error);

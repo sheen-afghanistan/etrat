@@ -122,13 +122,13 @@ export default function AdminLayout({ children }) {
                     </Link>
                 </nav>
                 <div className="p-4 border-t border-border">
-                    <Link
+                    <a
                         href="/api/auth/logout"
                         className="flex items-center gap-3 px-4 py-2 text-sm font-medium rounded-lg text-red-500 hover:bg-red-50 transition-colors"
                     >
                         <LogOut className="h-5 w-5" />
                         خروج
-                    </Link>
+                    </a>
                 </div>
             </aside>
 
