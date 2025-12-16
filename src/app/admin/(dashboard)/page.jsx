@@ -84,7 +84,7 @@ export default async function AdminDashboard() {
     ];
 
     return (
-        <div className="space-y-8 p-8" dir="rtl">
+        <div className="space-y-8" dir="rtl">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">داشبورد</h1>
                 <p className="text-muted-foreground mt-2">
@@ -93,7 +93,7 @@ export default async function AdminDashboard() {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                 {stats.map((stat) => (
                     <div
                         key={stat.name}
@@ -113,9 +113,9 @@ export default async function AdminDashboard() {
                 ))}
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-7">
                 {/* Recent Donations */}
-                <div className="rounded-2xl border bg-card text-card-foreground shadow-sm col-span-4">
+                <div className="rounded-2xl border bg-card text-card-foreground shadow-sm col-span-full lg:col-span-4">
                     <div className="p-6 border-b">
                         <h3 className="font-semibold text-lg flex items-center gap-2">
                             <Package className="w-5 h-5 text-primary" />
@@ -141,7 +141,7 @@ export default async function AdminDashboard() {
                                         <div className="text-right">
                                             <p className="font-bold text-green-600">{formatCurrency(donation.amount)}</p>
                                             <span className={`text-[10px] px-2 py-0.5 rounded-full ${donation.status === 'completed' ? 'bg-green-100 text-green-700' :
-                                                    donation.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
+                                                donation.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
                                                 }`}>
                                                 {donation.status === 'completed' ? 'تکمیل شده' :
                                                     donation.status === 'pending' ? 'در انتظار' : 'ناموفق'}
@@ -159,7 +159,7 @@ export default async function AdminDashboard() {
                 </div>
 
                 {/* Recent Messages */}
-                <div className="rounded-2xl border bg-card text-card-foreground shadow-sm col-span-3">
+                <div className="rounded-2xl border bg-card text-card-foreground shadow-sm col-span-full lg:col-span-3">
                     <div className="p-6 border-b bg-muted/20">
                         <h3 className="font-semibold text-lg flex items-center gap-2">
                             <Mail className="w-5 h-5 text-primary" />

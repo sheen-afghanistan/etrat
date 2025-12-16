@@ -67,7 +67,7 @@ export default function DonationsPage() {
                                                 donation.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
                                                     'bg-red-100 text-red-800'}`}>
                                             {donation.status === 'completed' ? 'موفق' :
-                                                donation.status === 'pending' ? 'موفق' : 'ناموفق'}
+                                                donation.status === 'pending' ? 'در انتظار' : 'ناموفق'}
                                         </span>
                                     </td>
                                 </tr>
