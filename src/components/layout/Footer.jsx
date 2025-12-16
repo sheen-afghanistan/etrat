@@ -78,7 +78,7 @@ export function Footer() {
                                 <ul role="list" className="mt-6 space-y-4">
                                     <li className="flex items-center gap-2 text-sm leading-6 text-primary-foreground/70">
                                         <MapPin className="h-4 w-4" />
-                                       کوه چهل دختران عقب مکتب سیدالشهدا بالاتر از چشمه کابل، افغانستان
+                                        کوه چهل دختران عقب مکتب سیدالشهدا بالاتر از چشمه کابل، افغانستان
                                     </li>
                                     <li className="flex items-center gap-2 text-sm leading-6 text-primary-foreground/70">
                                         <Phone className="h-4 w-4" />
@@ -86,7 +86,7 @@ export function Footer() {
                                     </li>
                                     <li className="flex items-center gap-2 text-sm leading-6 text-primary-foreground/70">
                                         <Mail className="h-4 w-4" />
-                                        info@etrat-elm.com
+                                        etrat-elm@gmail.com
                                     </li>
                                 </ul>
                             </div>
