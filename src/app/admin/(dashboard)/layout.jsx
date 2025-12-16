@@ -41,7 +41,7 @@ export default function AdminLayout({ children }) {
 
             {/* Sidebar */}
             <aside className={`
-                fixed inset-y-0 right-0 z-50 w-64 bg-background border-l border-border flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:flex
+                fixed inset-y-0 right-0 z-50 w-64 bg-white dark:bg-zinc-900 border-l border-border flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:flex
                 ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
             `}>
                 <div className="p-6 border-b border-border hidden lg:block">
@@ -136,6 +136,6 @@ export default function AdminLayout({ children }) {
             <main className="flex-1 overflow-y-auto p-4 lg:p-8 pt-20 lg:pt-8 transition-all duration-300">
                 {children}
             </main>
-        </div>
+        </div >
     );
 }
