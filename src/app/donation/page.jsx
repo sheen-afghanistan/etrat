@@ -82,23 +82,23 @@ export default function DonationPage() {
                         در حال حاضر کمک‌ها از طریق ایمیل هماهنگ می‌شود. لطفاً برای هماهنگی و دریافت اطلاعات حساب، به ما پیام بفرستید
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <div className="relative group">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+                        <div className="relative group w-full sm:w-auto">
                             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-                            <div className="relative flex items-center gap-3 bg-background border px-6 py-4 rounded-xl text-lg font-mono font-bold">
-                                <Mail className="w-5 h-5 text-primary" />
-                                <span>etrat.elm@gmail.com</span>
+                            <div className="relative flex items-center justify-between sm:justify-start gap-3 bg-background border px-4 sm:px-6 py-4 rounded-xl text-sm sm:text-lg font-mono font-bold w-full">
+                                <Mail className="w-5 h-5 text-primary shrink-0" />
+                                <span className="truncate">etrat.elm@gmail.com</span>
                                 <Button
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleCopy("etrat.elm@gmail.com")}
-                                    className="mr-2 hover:bg-muted"
+                                    className="mr-2 hover:bg-muted shrink-0"
                                 >
                                     {copied ? <CheckCircle2 className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
                                 </Button>
                             </div>
                         </div>
-                        <Button size="lg" className="h-14 px-8 rounded-xl text-lg md:w-auto w-full" asChild>
+                        <Button size="lg" className="h-14 px-8 rounded-xl text-lg w-full sm:w-auto" asChild>
                             <a href="mailto:etrat.elm@gmail.com">ارسال ایمیل</a>
                         </Button>
                     </div>

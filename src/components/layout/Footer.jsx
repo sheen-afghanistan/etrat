@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { GraduationCap, Facebook, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react";
 
 const navigation = {
@@ -35,6 +38,12 @@ const navigation = {
 };
 
 export function Footer() {
+    const pathname = usePathname();
+
+    if (pathname?.startsWith("/admin")) {
+        return null;
+    }
+
     return (
         <footer className="bg-primary text-primary-foreground" aria-labelledby="footer-heading">
             <h2 id="footer-heading" className="sr-only">
