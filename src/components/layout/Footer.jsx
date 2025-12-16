@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GraduationCap, Facebook, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { GraduationCap, Facebook, Twitter, Instagram, Mail, Phone, MapPin, Heart } from "lucide-react";
 
 const navigation = {
     main: [
@@ -116,10 +116,23 @@ export function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
+                <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-xs leading-5 text-primary-foreground/50">
                         &copy; {new Date().getFullYear()} مرکز آموزشی عترت علم. تمامی حقوق محفوظ است
                     </p>
+                    <div className="flex items-center gap-1 text-xs text-primary-foreground/70" dir="ltr">
+                        <span>Made with</span>
+                        <Heart className="h-3.5 w-3.5 text-red-500 fill-red-500" />
+                        <span>by</span>
+                        <Link
+                            href="https://www.linkedin.com/in/suliman-hakimi"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium hover:text-white transition-colors"
+                        >
+                            Suliman Hakimi
+                        </Link>
+                    </div>
                 </div>
             </div>
         </footer>
