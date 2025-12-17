@@ -1,6 +1,5 @@
+import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 
 export const dynamic = "force-dynamic";
 
@@ -13,14 +12,13 @@ export async function POST(request) {
             return NextResponse.json({ error: "No file received." }, { status: 400 });
         }
 
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const base64 = buffer.toString("base64");
-        const mimeType = file.type || "image/jpeg"; // Default to jpeg if type is missing
-        const dataUri = `data:${mimeType};base64,${base64}`;
+        const blob = await put(file.name, file, {
+            access: 'public',
+        });
 
         return NextResponse.json({
             success: true,
-            url: dataUri
+            url: blob.url
         });
     } catch (error) {
         console.error("Upload Error:", error);
