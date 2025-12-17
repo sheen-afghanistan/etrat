@@ -38,28 +38,43 @@ export default function TeachersAdminPage() {
         e.preventDefault();
         setSubmitting(true);
 
-        let imageUrl = formData.imageUrl;
-
         try {
+            let imageUrl = formData.imageUrl;
+
             // 1. Upload Image content if selected
             if (file) {
                 const uploadData = new FormData();
                 uploadData.append("file", file);
                 const uploadRes = await fetch("/api/upload", { method: "POST", body: uploadData });
+
+                if (!uploadRes.ok) {
+                    throw new Error(`Upload failed: ${uploadRes.statusText} (${uploadRes.status})`);
+                }
+
                 const uploadResult = await uploadRes.json();
                 if (uploadResult.success) {
                     imageUrl = uploadResult.url;
                 } else {
-                    throw new Error("آپلود تصویر انجام نشد");
+                    throw new Error(uploadResult.error || "آپلود تصویر انجام نشد");
                 }
             }
 
             // 2. Save Teacher
+            // If imageUrl is empty string, delete it to let Mongoose default take over
+            const payload = { ...formData };
+            if (imageUrl) {
+                payload.imageUrl = imageUrl;
+            } else {
+                delete payload.imageUrl;
+            }
+
             const res = await fetch("/api/teachers", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...formData, imageUrl }),
+                body: JSON.stringify(payload),
             });
+
+            const data = await res.json();
 
             if (res.ok) {
                 setFormData({ name: "", role: "", bio: "", imageUrl: "" });
@@ -67,13 +82,14 @@ export default function TeachersAdminPage() {
                 // Reset file input
                 document.getElementById("t-image").value = "";
                 fetchTeachers();
+                alert("استاد با موفقیت افزوده شد");
             } else {
-                alert("خطا در ثبت استاد");
+                alert(`خطا در ثبت استاد: ${data.error || "نامشخص"}`);
             }
 
         } catch (error) {
             console.error(error);
-            alert("خطای عملیات");
+            alert(`خطای عملیات: ${error.message}`);
         } finally {
             setSubmitting(false);
         }

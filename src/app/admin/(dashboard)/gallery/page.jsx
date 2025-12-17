@@ -43,6 +43,11 @@ export default function GalleryAdminPage() {
                 method: "POST",
                 body: formData,
             });
+
+            if (!uploadRes.ok) {
+                throw new Error(`Upload failed: ${uploadRes.statusText} (${uploadRes.status})`);
+            }
+
             const uploadData = await uploadRes.json();
 
             if (uploadData.success) {
@@ -56,19 +61,24 @@ export default function GalleryAdminPage() {
                     }),
                 });
 
+                const data = await res.json();
+
                 if (res.ok) {
                     setTitle("");
                     setFile(null);
                     fetchImages();
                     // Reset file input manually
                     document.getElementById("file-upload").value = "";
+                    alert("تصویر با موفقیت آپلود شد");
+                } else {
+                    alert(`خطا در ذخیره تصویر: ${data.error || "نامشخص"}`);
                 }
             } else {
-                alert("خطا در آپلود فایل");
+                alert(uploadData.error || "خطا در آپلود فایل");
             }
         } catch (error) {
             console.error(error);
-            alert("خطای سیستمی");
+            alert(`خطای سیستمی: ${error.message}`);
         } finally {
             setUploading(false);
         }
