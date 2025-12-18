@@ -39,35 +39,41 @@ export default function TeachersAdminPage() {
         setSubmitting(true);
 
         try {
-            let imageUrl = formData.imageUrl;
+            let currentImageUrl = formData.imageUrl;
 
-            // 1. Upload Image content if selected
+            // 1. Upload Image if a file is selected
             if (file) {
                 const uploadData = new FormData();
                 uploadData.append("file", file);
-                const uploadRes = await fetch("/api/upload", { method: "POST", body: uploadData });
+
+                const uploadRes = await fetch("/api/upload", {
+                    method: "POST",
+                    body: uploadData
+                });
 
                 if (!uploadRes.ok) {
-                    throw new Error(`Upload failed: ${uploadRes.statusText} (${uploadRes.status})`);
+                    const errorData = await uploadRes.json();
+                    throw new Error(errorData.error || "خطا در آپلود تصویر");
                 }
 
                 const uploadResult = await uploadRes.json();
                 if (uploadResult.success) {
-                    imageUrl = uploadResult.url;
-                } else {
-                    throw new Error(uploadResult.error || "آپلود تصویر انجام نشد");
+                    currentImageUrl = uploadResult.url;
                 }
             }
 
-            // 2. Save Teacher
-            // If imageUrl is empty string, delete it to let Mongoose default take over
-            const payload = { ...formData };
-            if (imageUrl) {
-                payload.imageUrl = imageUrl;
-            } else {
-                delete payload.imageUrl;
+            // 2. Prepare the payload
+            const payload = {
+                name: formData.name,
+                role: formData.role,
+                bio: formData.bio,
+            };
+
+            if (currentImageUrl) {
+                payload.imageUrl = currentImageUrl;
             }
 
+            // 3. Save Teacher to Database
             const res = await fetch("/api/teachers", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -76,24 +82,25 @@ export default function TeachersAdminPage() {
 
             const data = await res.json();
 
-            if (res.ok) {
+            if (res.ok && data.success) {
                 setFormData({ name: "", role: "", bio: "", imageUrl: "" });
                 setFile(null);
                 // Reset file input
-                document.getElementById("t-image").value = "";
+                const fileInput = document.getElementById("t-image");
+                if (fileInput) fileInput.value = "";
                 fetchTeachers();
-                alert("استاد با موفقیت افزوده شد");
             } else {
-                alert(`خطا در ثبت استاد: ${data.error || "نامشخص"}`);
+                throw new Error(data.error || "خطا در ثبت اطلاعات استاد");
             }
 
         } catch (error) {
-            console.error(error);
-            alert(`خطای عملیات: ${error.message}`);
+            console.error("Teacher Creation Error:", error);
+            alert(`خطا: ${error.message}`);
         } finally {
             setSubmitting(false);
         }
     };
+
 
     const handleDelete = async (id) => {
         if (!confirm("آیا مطمئن هستید؟")) return;

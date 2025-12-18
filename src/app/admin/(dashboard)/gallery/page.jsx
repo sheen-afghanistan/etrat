@@ -69,7 +69,6 @@ export default function GalleryAdminPage() {
                     fetchImages();
                     // Reset file input manually
                     document.getElementById("file-upload").value = "";
-                    alert("تصویر با موفقیت آپلود شد");
                 } else {
                     alert(`خطا در ذخیره تصویر: ${data.error || "نامشخص"}`);
                 }

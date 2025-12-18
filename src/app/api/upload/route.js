@@ -12,7 +12,9 @@ export async function POST(request) {
             return NextResponse.json({ error: "No file received." }, { status: 400 });
         }
 
-        const blob = await put(file.name, file, {
+        const fileName = file.name || `upload-${Date.now()}`;
+
+        const blob = await put(fileName, file, {
             access: 'public',
         });
 
@@ -21,7 +23,6 @@ export async function POST(request) {
             url: blob.url
         });
     } catch (error) {
-        console.error("Upload Error:", error);
         return NextResponse.json({ error: `Upload failed: ${error.message}` }, { status: 500 });
     }
 }
