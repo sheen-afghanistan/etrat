@@ -12,7 +12,10 @@ export async function POST(request) {
             return NextResponse.json({ error: "No file received." }, { status: 400 });
         }
 
-        const fileName = file.name || `upload-${Date.now()}`;
+        const timestamp = Date.now();
+        const randomString = Math.random().toString(36).substring(2, 8);
+        const originalName = file.name || "upload";
+        const fileName = `${timestamp}-${randomString}-${originalName}`;
 
         const blob = await put(fileName, file, {
             access: 'public',
